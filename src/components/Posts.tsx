@@ -1,14 +1,11 @@
 import Post from "@/components/Post";
-import Posts from "@/components/Posts";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
+import ToolsBar from "@/components/ToolsBar";
 const PAGE_SIZE = 5;
-
 type Block = { id: number; content: string };
-
 function fetchFakeData(page: number): Promise<Block[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -21,11 +18,9 @@ function fetchFakeData(page: number): Promise<Block[]> {
     }, 1000);
   });
 }
-
 export default function InfiniteScrollFeed() {
   const navigate = useNavigate();
   const gotoPost = (postId: number) => navigate(`/board/details/${postId}`);
-
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -61,7 +56,17 @@ export default function InfiniteScrollFeed() {
 
   return (
     <div>
-      <Posts />
+      <ToolsBar />
+      <ScrollArea className="rounded-md border h-screen">
+        {blocks.map((block) => (
+          <Card key={block.id} onClick={() => gotoPost(block.id)}>
+            <Post {...block} />
+          </Card>
+        ))}
+        <div ref={loader} className="text-center p-4">
+          {loading ? "Loading more..." : "Scroll down to load more"}
+        </div>
+      </ScrollArea>
     </div>
   );
 }
