@@ -3,17 +3,12 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Sidebar } from "@/components/ui/sidebar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-const Navbar = () => {
-  return (
-    <div className="bg-green-500 text-white  py-2 px-5 flex justify-between mb-6">
-      a Board
-    </div>
-  );
-};
+import AppNavbar from "@/components/app-navbar";
+
 export default function LoggedInLayout() {
   return (
     <div className="w-screen">
-      <Navbar />
+      <AppNavbar />
       <SidebarProvider>
         <AppSidebar />
         <main className="container">

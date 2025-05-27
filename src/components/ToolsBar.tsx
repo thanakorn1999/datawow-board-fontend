@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-export default function ToolsBar() {
+export default function ToolsBar({ openDialogPost }) {
   return (
     <Form>
       <div className="flex">
@@ -30,7 +30,7 @@ export default function ToolsBar() {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Button>Create +</Button>
+        <Button onClick={openDialogPost}>Create +</Button>
       </div>
     </Form>
   );

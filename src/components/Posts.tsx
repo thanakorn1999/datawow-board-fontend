@@ -1,9 +1,11 @@
 import Post from "@/components/Post";
 import { Card } from "@/components/ui/card";
+import DialogPostCreateEdit from "@/components/dialog-post-create-edit";
+import DialogPostCreateDel from "@/components/dialog-post-delete";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import ToolsBar from "@/components/ToolsBar";
+import ToolsBar from "@/components/toolsbar";
 const PAGE_SIZE = 5;
 type Block = { id: number; content: string };
 function fetchFakeData(page: number): Promise<Block[]> {
@@ -23,6 +25,7 @@ export default function InfiniteScrollFeed() {
   const gotoPost = (postId: number) => navigate(`/board/details/${postId}`);
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [page, setPage] = useState(0);
+  const [dialogPost, setDialogPost] = useState(false);
   const [loading, setLoading] = useState(false);
   const loader = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -56,7 +59,7 @@ export default function InfiniteScrollFeed() {
 
   return (
     <div>
-      <ToolsBar />
+      <ToolsBar openDialogPost={() => setDialogPost(true)} />
       <ScrollArea className="rounded-md border h-screen">
         {blocks.map((block) => (
           <Card key={block.id} onClick={() => gotoPost(block.id)}>
@@ -67,6 +70,8 @@ export default function InfiniteScrollFeed() {
           {loading ? "Loading more..." : "Scroll down to load more"}
         </div>
       </ScrollArea>
+      <DialogPostCreateDel />
+      <DialogPostCreateEdit status={dialogPost} setStatus={setDialogPost} />
     </div>
   );
 }
