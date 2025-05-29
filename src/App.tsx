@@ -7,6 +7,7 @@ import BoardId from "./pages/(loggedIn)/board/details/[id]";
 import MyBoard from "./pages/(loggedIn)/board/me";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//
 
 function App() {
   return (
@@ -17,7 +18,6 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Route>
-
         {/* Board Routes */}
         <Route path="/board" element={<LoggedInLayout />}>
           <Route index element={<Board />} />

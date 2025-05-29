@@ -10,22 +10,26 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
-// Menu items.
-const items = [
-  {
-    title: "Home",
-    url: "/board",
-    icon: Home,
-  },
-  {
-    title: "Our Blog",
-    url: "/board/me",
-    icon: Inbox,
-  },
-];
-
+import { selectUser } from "@/redux/slices/userSlice";
+import { useSelector } from "react-redux";
 export function AppSidebar() {
+  const user = useSelector((state) => selectUser(state));
+  const items = [
+    {
+      title: "Home",
+      url: "/board",
+      icon: Home,
+    },
+    ...(user.id
+      ? [
+          {
+            title: "Our Blog",
+            url: "/board/me",
+            icon: Inbox,
+          },
+        ]
+      : []),
+  ];
   return (
     <Sidebar collapsible="none">
       <SidebarContent>

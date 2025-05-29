@@ -1,4 +1,5 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,14 +14,19 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { selectUser } from "@/redux/slices/userSlice";
+import { useSelector } from "react-redux";
+import { UserType } from "@/types/user";
+//
+import { useNavigate } from "react-router-dom";
 
-const MyAvatar = ({ img }) => {
+const MyAvatar = (user: UserType) => {
   const logout = () => {};
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src={img}></AvatarImage>
+          <AvatarImage src={user.img}></AvatarImage>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -34,14 +40,17 @@ const MyAvatar = ({ img }) => {
     </DropdownMenu>
   );
 };
+const BtnGotoLogin = () => {
+  const navigate = useNavigate();
+
+  return <Button onClick={() => navigate("/signin")}>Login</Button>;
+};
 export default function AppNavbar() {
-  const img = "https://picsum.photos/id/1/200/300";
+  const user = useSelector((state) => selectUser(state));
   return (
     <div className="bg-green-500 text-white  py-2 px-5 flex justify-between mb-6">
       <div>a Board</div>
-      <div>
-        <MyAvatar img={img} />
-      </div>
+      <div>{user.id ? <MyAvatar {...user} /> : <BtnGotoLogin />}</div>
     </div>
   );
 }

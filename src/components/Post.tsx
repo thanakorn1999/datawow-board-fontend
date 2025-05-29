@@ -63,7 +63,7 @@ export default function Post({
         <CardDescription>{text}</CardDescription>
         <div>
           ICON
-          <p>{comments.length} Comments</p>
+          <p>{comments?.length ?? 0} Comments</p>
         </div>
       </CardContent>
     </>
