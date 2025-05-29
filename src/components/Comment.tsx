@@ -6,8 +6,9 @@ import {
   CardHeader,
   CardDescription,
 } from "@/components/ui/card";
+import { CommentType } from "@/types/comment";
 
-export default function Comment() {
+export default function Comment({}: CommentType) {
   const name = "name";
   const timestamp = 0;
   const img = "https://picsum.photos/id/1/200/300";

@@ -1,9 +1,9 @@
 import Posts from "@/components/Posts";
 
-export default function MyBoard() {
+export default function InfiniteScrollFeed() {
   return (
     <div>
-      <Posts />
+      <Posts onlyMe={true} />
     </div>
   );
 }

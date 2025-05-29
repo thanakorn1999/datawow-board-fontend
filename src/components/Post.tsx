@@ -1,5 +1,6 @@
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { BlogType } from "@/types/blog";
 import {
   Card,
   CardTitle,
@@ -25,19 +26,25 @@ const BtnEdit = () => (
     <Button>edit</Button>
   </>
 );
-export default function Post({ id }) {
-  const name = "name";
-  const title = "title";
-  const description = "description";
+export default function Post({
+  id,
+  title,
+  text,
+  createdAt,
+  user,
+  comments,
+}: BlogType) {
   const communityTag = "CommunityTag";
   const isMyPost = true;
+
   return (
     <>
       <CardHeader>
         <div className="flex">
           <Avatar />
           <div className="flex-1">
-            <span>{name}</span>
+            <span>{user?.username || "-"}</span>
+            <span>{createdAt}</span>
           </div>
           {isMyPost && (
             <div className="flex gap-2">
@@ -53,10 +60,10 @@ export default function Post({ id }) {
         <CardTitle>
           {title} {id}
         </CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>{text}</CardDescription>
         <div>
           ICON
-          <p>4 Comments</p>
+          <p>{comments.length} Comments</p>
         </div>
       </CardContent>
     </>
